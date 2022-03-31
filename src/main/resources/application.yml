@@ -1,0 +1,24 @@
+server:
+  port: 22334
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 2048
+
+
+mybatis:
+  typeAliasesPackage: live.hardproblem.dao.entity
+  mapperLocations: classpath:mapper/*.xml
+
+spring:
+  profiles:
+    active: dev
+  jpa:
+    database: MYSQL
+  thymeleaf:
+    prefix: classpath:/static/
+    cache: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/what_to_eat?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: "root"
+    password: "123456"
