@@ -26,19 +26,29 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <table tableName="food"
-               domainObjectName="Food">
+               domainObjectName="Food"
+               enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" selectByExampleQueryId="false">
         </table>
         <table tableName="food_tag"
-               domainObjectName="FoodTag">
+               domainObjectName="FoodTag"
+               enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" selectByExampleQueryId="false">
         </table>
         <table tableName="tag"
-               domainObjectName="Tag">
+               domainObjectName="Tag"
+               enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" selectByExampleQueryId="false">
         </table>
         <table tableName="menu"
-               domainObjectName="Menu">
+               domainObjectName="Menu"
+               enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" selectByExampleQueryId="false">
         </table>
         <table tableName="menu_food"
-               domainObjectName="MenuFood">
+               domainObjectName="MenuFood"
+               enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" selectByExampleQueryId="false">
         </table>
     </context>
 </generatorConfiguration>

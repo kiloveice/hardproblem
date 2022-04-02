@@ -5,4 +5,8 @@
     select *
     from food;
   </select>
+    <select id="getAllId" resultType="java.lang.Integer">
+        select id
+        from food;
+    </select>
 </mapper>

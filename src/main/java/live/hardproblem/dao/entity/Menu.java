@@ -5,6 +5,8 @@ import java.util.Date;
 public class Menu {
     private Integer id;
 
+    private String name;
+
     private Boolean status;
 
     private Date createdAt;
@@ -19,6 +21,14 @@ public class Menu {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public Boolean getStatus() {
