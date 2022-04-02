@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="live.hardproblem.dao.ExFoodTagMapper">
+    <select id="selectFoodIdByFoodIdListAndTagIdList" resultType="java.lang.Integer">
+        select distinct food_id
+        from food_tag
+        <where>
+            <if test="all != true">
+                and
+                status = true
+            </if>
+            <if test="foodIdList != null">
+                and
+                food_id in
+                <foreach collection="foodIdList" item="foodId" open="(" close=")" separator=",">
+                    #{foodId}
+                </foreach>
+            </if>
+            <if test="tagIdList != null and include">
+                and
+                tag_id in
+                <foreach collection="tagIdList" item="tagId" open="(" close=")" separator=",">
+                    #{tagId}
+                </foreach>
+            </if>
+            <if test="tagIdList != null and !include">
+                and
+                tag_id not in
+                <foreach collection="tagIdList" item="tagId" open="(" close=")" separator=",">
+                    #{tagId}
+                </foreach>
+            </if>
+        </where>
+    </select>
+</mapper>

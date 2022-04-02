@@ -10,6 +10,17 @@ mybatis:
   typeAliasesPackage: live.hardproblem.dao.entity
   mapperLocations: classpath:mapper/*.xml
 
+logging:
+  #  level:
+  #    root: info
+  level:
+    live:
+      hardproblem:
+        dao:
+          debug
+#  file:
+#    name: ./log/log.txt
+
 spring:
   profiles:
     active: dev
