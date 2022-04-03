@@ -1,23 +1,17 @@
 package live.hardproblem.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import live.hardproblem.dao.entity.Food;
 import live.hardproblem.service.FoodService;
 import live.hardproblem.service.ProblemService;
 import live.hardproblem.util.IpUtil;
 import lombok.extern.java.Log;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.web.bind.annotation.*;
 import live.hardproblem.beans.HttpResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 
 @Log
@@ -75,18 +69,17 @@ public class FoodController {
         return response;
     }
 
-    @PostMapping("/food/solve")
+    @PostMapping("/food/solve/tag")
     public HttpResponseEntity solve(@RequestBody Map<Object, Object> request) {
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try {
             Integer menuId = (Integer) request.getOrDefault("menu", null);
-            ArrayList<Integer> tagIdList = (ArrayList<Integer>) request.getOrDefault("tag", null);
-            Boolean include = (Boolean) request.getOrDefault("include", true);
+            ArrayList<Integer> tagIdList = (ArrayList<Integer>) request.get("tag");
             Food food;
             if (menuId != null) {
-                food = problemService.solveWithMenu(menuId, tagIdList, include);
+                food = problemService.solveWithMenuByTag(menuId, tagIdList);
             } else {
-                food = problemService.solveWithoutMenu(tagIdList, include);
+                food = problemService.solveWithoutMenuByTag(tagIdList);
             }
             httpResponseEntity.setCode("200");
             httpResponseEntity.setData(food);
