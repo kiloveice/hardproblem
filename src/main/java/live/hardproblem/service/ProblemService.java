@@ -55,4 +55,11 @@ public class ProblemService {
         int id = getRandFoodId(foodId);
         return foodMapper.selectByPrimaryKey(id);
     }
+
+    //有tag 反向筛选
+    public Food solveWithTagReverse(Integer menuId, List<Integer> tagIdList) {
+        List<Integer> foodId = foodTagMapper.selectFoodIdByFoodIdListByTagReverse(menuId, tagIdList, false);
+        int id = getRandFoodId(foodId);
+        return foodMapper.selectByPrimaryKey(id);
+    }
 }

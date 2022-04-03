@@ -131,4 +131,22 @@ public class FoodController {
         }
         return httpResponseEntity;
     }
+
+    @PostMapping("/food/solve/tag/reverse")
+    public HttpResponseEntity solveByTagReverse(@RequestBody Map<Object, Object> request) {
+        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+        try {
+            Integer menuId = (Integer) request.getOrDefault("menu", null);
+            ArrayList<Integer> tagIdList = (ArrayList<Integer>) request.get("tag");
+            Food food = problemService.solveWithTagReverse(menuId, tagIdList);
+            httpResponseEntity.setCode("200");
+            httpResponseEntity.setData(food);
+            httpResponseEntity.setMessage("OK!");
+        } catch (Exception e) {
+            log.info(e.toString());
+            httpResponseEntity.setCode("202");
+            httpResponseEntity.setMessage("Error");
+        }
+        return httpResponseEntity;
+    }
 }
