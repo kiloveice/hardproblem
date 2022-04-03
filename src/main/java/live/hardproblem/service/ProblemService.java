@@ -41,4 +41,18 @@ public class ProblemService {
         int index = random.nextInt(foodId.size());
         return foodId.get(index);
     }
+
+    //有menu 没有tag
+    public Food solveWithMenu(int menuId) {
+        List<Integer> foodId = menuFoodMapper.selectFoodIdByMenuId(menuId);
+        int id = getRandFoodId(foodId);
+        return foodMapper.selectByPrimaryKey(id);
+    }
+
+    //没有menu 没有tag
+    public Food solveWithoutMenu() {
+        List<Integer> foodId = foodMapper.getAllId(false);
+        int id = getRandFoodId(foodId);
+        return foodMapper.selectByPrimaryKey(id);
+    }
 }

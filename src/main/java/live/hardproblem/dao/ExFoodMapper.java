@@ -9,5 +9,5 @@ public interface ExFoodMapper extends FoodMapper {
 
     List<Food> selectAll(@Param("page") int page, @Param("num") int num);
 
-    List<Integer> getAllId();
+    List<Integer> getAllId(@Param("all") boolean all);
 }

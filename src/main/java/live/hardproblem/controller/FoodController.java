@@ -70,7 +70,7 @@ public class FoodController {
     }
 
     @PostMapping("/food/solve/tag")
-    public HttpResponseEntity solve(@RequestBody Map<Object, Object> request) {
+    public HttpResponseEntity solveByTag(@RequestBody Map<Object, Object> request) {
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try {
             Integer menuId = (Integer) request.getOrDefault("menu", null);
@@ -106,6 +106,28 @@ public class FoodController {
             log.info(e.toString());
             httpResponseEntity.setCode("202");
             httpResponseEntity.setMessage("error");
+        }
+        return httpResponseEntity;
+    }
+
+    @PostMapping("/food/solve")
+    public HttpResponseEntity solve(@RequestBody Map<Object, Object> request) {
+        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+        try {
+            Integer menuId = (Integer) request.getOrDefault("menu", null);
+            Food food;
+            if (menuId != null) {
+                food = problemService.solveWithMenu(menuId);
+            } else {
+                food = problemService.solveWithoutMenu();
+            }
+            httpResponseEntity.setCode("200");
+            httpResponseEntity.setData(food);
+            httpResponseEntity.setMessage("OK!");
+        } catch (Exception e) {
+            log.info(e.toString());
+            httpResponseEntity.setCode("202");
+            httpResponseEntity.setMessage("Error");
         }
         return httpResponseEntity;
     }
