@@ -17,18 +17,21 @@ public class ProblemService {
     @Autowired
     ExFoodTagMapper foodTagMapper;
 
-    public Food solveWithMenu(int menuId, List<Integer> tagIdList, boolean include) {
+    //有menu 有tag 正向筛选
+    public Food solveWithMenuByTag(int menuId, List<Integer> tagIdList) {
         List<Integer> foodId = menuFoodMapper.selectFoodIdByMenuId(menuId);
-        return getFoodIdByTag(foodId, tagIdList, include);
+        return getFoodIdByTag(foodId, tagIdList);
     }
 
-    public Food solveWithoutMenu(List<Integer> tagIdList, boolean include) {
-        return getFoodIdByTag(null, tagIdList, include);
+    //没有menu 有tag 正向筛选
+    public Food solveWithoutMenuByTag(List<Integer> tagIdList) {
+        return getFoodIdByTag(null, tagIdList);
     }
 
-    public Food getFoodIdByTag(List<Integer> foodIdList, List<Integer> tagIdList, boolean include) {
+    //从foodIdList中 筛选有tag 正向筛选
+    public Food getFoodIdByTag(List<Integer> foodIdList, List<Integer> tagIdList) {
         List<Integer> foodId = foodTagMapper.
-                selectFoodIdByFoodIdListAndTagIdList(foodIdList, tagIdList, include, false);
+                selectFoodIdByFoodIdListAndTagIdList(foodIdList, tagIdList, true, false);
         int id = getRandFoodId(foodId);
         return foodMapper.selectByPrimaryKey(id);
     }
@@ -37,5 +40,26 @@ public class ProblemService {
         Random random = new Random();
         int index = random.nextInt(foodId.size());
         return foodId.get(index);
+    }
+
+    //有menu 没有tag
+    public Food solveWithMenu(int menuId) {
+        List<Integer> foodId = menuFoodMapper.selectFoodIdByMenuId(menuId);
+        int id = getRandFoodId(foodId);
+        return foodMapper.selectByPrimaryKey(id);
+    }
+
+    //没有menu 没有tag
+    public Food solveWithoutMenu() {
+        List<Integer> foodId = foodMapper.getAllId(false);
+        int id = getRandFoodId(foodId);
+        return foodMapper.selectByPrimaryKey(id);
+    }
+
+    //有tag 反向筛选
+    public Food solveWithTagReverse(Integer menuId, List<Integer> tagIdList) {
+        List<Integer> foodId = foodTagMapper.selectFoodIdByFoodIdListByTagReverse(menuId, tagIdList, false);
+        int id = getRandFoodId(foodId);
+        return foodMapper.selectByPrimaryKey(id);
     }
 }

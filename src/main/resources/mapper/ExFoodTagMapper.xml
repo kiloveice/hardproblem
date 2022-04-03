@@ -32,4 +32,54 @@
             </if>
         </where>
     </select>
+
+    <select id="selectFoodIdByFoodIdListByTagReverse" resultType="java.lang.Integer">
+        select
+        <if test="menuId != null">
+            food_id
+        </if>
+        <if test="menuId == null">
+            id
+        </if>
+        from
+        <if test="menuId != null">
+            menu_food
+            <where>
+                and menu_id=#{menuId}
+                <if test="all != true">
+                    and status = true
+                </if>
+            </where>
+        </if>
+        <if test="menuId == null">
+            food
+            <where>
+                <if test="all != true">
+                    and status = true
+                </if>
+            </where>
+        </if>
+        and
+        <if test="menuId != null">
+            menu_food.food_id
+        </if>
+        <if test="menuId == null">
+            food.id
+        </if>
+        not in(
+        select food_id
+        from food_tag
+        <where>
+            <if test="all != true">
+                and
+                status = true
+            </if>
+            and
+            tag_id in
+            <foreach collection="tagIdList" item="tagId" open="(" close=")" separator=",">
+                #{tagId}
+            </foreach>
+        </where>
+        )
+    </select>
 </mapper>
