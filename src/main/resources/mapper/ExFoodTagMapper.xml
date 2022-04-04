@@ -82,4 +82,20 @@
         </where>
         )
     </select>
+
+    <select id="getTagByFoodId" resultType="live.hardproblem.dao.entity.Tag">
+        select distinct *
+        from
+        tag,food_tag
+        <where>
+            <if test="!all">
+                and tag.status=true
+            </if>
+            <if test="!all">
+                and food_tag.status=true
+            </if>
+            and tag.id=food_tag.tag_id
+            and food_tag.food_id=#{foodId}
+        </where>
+    </select>
 </mapper>

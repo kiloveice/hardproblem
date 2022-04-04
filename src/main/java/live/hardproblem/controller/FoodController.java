@@ -2,8 +2,10 @@ package live.hardproblem.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import live.hardproblem.dao.entity.Food;
+import live.hardproblem.dao.entity.Tag;
 import live.hardproblem.service.FoodService;
 import live.hardproblem.service.ProblemService;
+import live.hardproblem.service.TagService;
 import live.hardproblem.util.IpUtil;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class FoodController {
     FoodService foodService;
     @Autowired
     ProblemService problemService;
+    @Autowired
+    TagService tagService;
     //jackson json工具
     @Autowired
     ObjectMapper mapper;
@@ -148,5 +152,25 @@ public class FoodController {
             httpResponseEntity.setMessage("Error");
         }
         return httpResponseEntity;
+    }
+
+    @PostMapping("/food/addtag")
+    public HttpResponseEntity addFoodTag(@RequestBody Map<Object, Object> requestData, HttpServletRequest request) {
+        HttpResponseEntity response = new HttpResponseEntity();
+        Integer num = 0;
+        try {
+            String ip = IpUtil.getIpAddr(request);
+            Integer foodId = (Integer) requestData.get("foodId");
+            Integer tagId = (Integer) requestData.get("tagId");
+            log.warning(ip + " try add food tag foodId = " + foodId + " " + "tagId = " + mapper.writeValueAsString(tagId));
+            num += tagService.addFoodTag(foodId, tagId);
+            response.setCode("200");
+            response.setMessage("OK");
+            response.setData(num);
+        } catch (Exception e) {
+            log.warning(e.toString());
+            response.setCode("500");
+        }
+        return response;
     }
 }
