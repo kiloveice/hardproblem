@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="live.hardproblem.dao.ExMenuMapper">
+    <select id="getAll" resultType="live.hardproblem.dao.entity.Menu">
+        select *
+        from menu
+        <where>
+            <if test="!all">
+                status=true
+            </if>
+        </where>
+    </select>
+</mapper>
