@@ -1,8 +1,10 @@
 package live.hardproblem.service;
 
+import live.hardproblem.dao.ExMenuFoodMapper;
 import live.hardproblem.dao.ExMenuMapper;
 import live.hardproblem.dao.entity.Food;
 import live.hardproblem.dao.entity.Menu;
+import live.hardproblem.dao.entity.MenuFood;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 public class MenuService {
     @Autowired
     ExMenuMapper menuMapper;
+    @Autowired
+    ExMenuFoodMapper menuFoodMapper;
 
     protected void insert_fill(Menu menu) {
         menu.setId(null);
@@ -28,13 +32,25 @@ public class MenuService {
         return (ArrayList<Menu>) menuMapper.getAll(all);
     }
 
-    public int insert(Menu menu){
+    public int insert(Menu menu) {
         insert_fill(menu);
         return menuMapper.insertSelective(menu);
     }
 
-    public int update(Menu menu){
+    public int update(Menu menu) {
         update_fill(menu);
         return menuMapper.updateByPrimaryKeySelective(menu);
+    }
+
+    public int addMenuFood(MenuFood menuFood) {
+        menuFood.setId(null);
+        menuFood.setStatus(null);
+        menuFood.setCreatedAt(null);
+        menuFood.setUpdatedAt(null);
+        return menuFoodMapper.insertSelective(menuFood);
+    }
+
+    public ArrayList<Food> getFoodByMenuId(Integer menuId, boolean all) {
+        return (ArrayList<Food>) menuFoodMapper.getFoodByMenuId(menuId, all);
     }
 }

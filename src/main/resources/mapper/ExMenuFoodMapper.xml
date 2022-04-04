@@ -6,4 +6,16 @@
         from menu_food
         where menu_id=#{id}
     </select>
+    <select id="getFoodByMenuId" resultType="live.hardproblem.dao.entity.Food">
+        select *
+        from food,menu_food
+        <where>
+            <if test="!all">
+                and food.status=true
+                and menu_food.status=true
+            </if>
+            and food.id=menu_food.food_id
+            and menu_food.menu_id=#{menuId}
+        </where>
+    </select>
 </mapper>
