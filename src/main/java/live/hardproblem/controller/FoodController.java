@@ -114,6 +114,23 @@ public class FoodController {
         return httpResponseEntity;
     }
 
+    @PostMapping("/food/get/by_id")
+    public HttpResponseEntity getById(@RequestBody Map<Object, Object> request) {
+        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+        try {
+            Integer foodId = (Integer) request.getOrDefault("foodId", 1);
+            Food food = foodService.getById(foodId);
+            httpResponseEntity.setCode("200");
+            httpResponseEntity.setData(food);
+            httpResponseEntity.setMessage("OK!");
+        } catch (Exception e) {
+            log.info(e.toString());
+            httpResponseEntity.setCode("202");
+            httpResponseEntity.setMessage("error");
+        }
+        return httpResponseEntity;
+    }
+
     @PostMapping("/food/solve")
     public HttpResponseEntity solve(@RequestBody Map<Object, Object> request) {
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();

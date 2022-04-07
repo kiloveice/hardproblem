@@ -53,4 +53,8 @@ public class MenuService {
     public ArrayList<Food> getFoodByMenuId(Integer menuId, boolean all) {
         return (ArrayList<Food>) menuFoodMapper.getFoodByMenuId(menuId, all);
     }
+
+    public Menu getByMenuId(Integer menuId){
+        return menuMapper.selectByPrimaryKey(menuId);
+    }
 }

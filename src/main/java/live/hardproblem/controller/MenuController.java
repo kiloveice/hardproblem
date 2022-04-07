@@ -112,4 +112,15 @@ public class MenuController {
         httpResponseEntity.setData(foods);
         return httpResponseEntity;
     }
+
+    @PostMapping("/get/by_menu_id")
+    public HttpResponseEntity getByMenuId(@RequestBody Map<Object, Object> request) {
+        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+        Integer menuId = (Integer) request.getOrDefault("menuId", 0);
+        Menu menu = menuService.getByMenuId(menuId);
+        httpResponseEntity.setCode("200");
+        httpResponseEntity.setMessage("OK");
+        httpResponseEntity.setData(menu);
+        return httpResponseEntity;
+    }
 }

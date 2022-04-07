@@ -36,6 +36,10 @@ public class FoodService {
     }
 
     public ArrayList<Food> selectAll(int page, int num) {
-        return (ArrayList<Food>) foodMapper.selectAll(page,num);
+        return (ArrayList<Food>) foodMapper.selectAll(page, num);
+    }
+
+    public Food getById(Integer id) {
+        return foodMapper.selectByPrimaryKey(id);
     }
 }

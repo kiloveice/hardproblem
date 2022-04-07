@@ -1,5 +1,5 @@
 server:
-  port: 22334
+  port: 22335
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
@@ -11,15 +11,25 @@ mybatis:
   mapperLocations: classpath:mapper/*.xml
 
 logging:
-  #  level:
-  #    root: info
-  level:
-    live:
-      hardproblem:
-        dao:
-          debug
-#  file:
-#    name: ./log/log.txt
+      level:
+        root: info
+#  level:
+#    live:
+#      hardproblem:
+#        dao:
+#          debug
+
+#    org:
+#      springframework:
+#        web:
+#          servlet:
+#            mvc:
+#              method:
+#                annotation:
+#                  RequestMappingHandlerMapping:
+#                    trace
+      file:
+        name: ./log/log.txt
 
 spring:
   profiles:
