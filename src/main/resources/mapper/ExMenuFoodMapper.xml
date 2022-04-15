@@ -18,4 +18,11 @@
             and menu_food.menu_id=#{menuId}
         </where>
     </select>
+    <delete id="deleteAFoodByMenuIdAndFoodId" parameterType="live.hardproblem.dao.entity.MenuFood">
+        delete from menu_food
+        where
+            menu_id=#{menuId}
+            and food_id=#{foodId}
+        limit 1
+    </delete>
 </mapper>

@@ -54,7 +54,11 @@ public class MenuService {
         return (ArrayList<Food>) menuFoodMapper.getFoodByMenuId(menuId, all);
     }
 
-    public Menu getByMenuId(Integer menuId){
+    public Menu getByMenuId(Integer menuId) {
         return menuMapper.selectByPrimaryKey(menuId);
+    }
+
+    public int deleteFood(MenuFood menuFood) {
+        return menuFoodMapper.deleteAFoodByMenuIdAndFoodId(menuFood);
     }
 }

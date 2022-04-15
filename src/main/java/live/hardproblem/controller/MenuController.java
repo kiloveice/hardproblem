@@ -123,4 +123,26 @@ public class MenuController {
         httpResponseEntity.setData(menu);
         return httpResponseEntity;
     }
+
+    @PostMapping("/delete/food")
+    public HttpResponseEntity deleteFood(@RequestBody MenuFood menuFood, HttpServletRequest request) {
+        HttpResponseEntity response = new HttpResponseEntity();
+        try {
+            String ip = IpUtil.getIpAddr(request);
+            int flag = menuService.deleteFood(menuFood);
+            if (flag > 0) {
+                log.warn(ip + " delete food from menu, menuFood id= " + mapper.writeValueAsString(menuFood));
+                response.setCode("200");
+                response.setMessage("OK");
+            } else {
+                log.warn(ip + " failed to delete food from menu, menuFood id= " + mapper.writeValueAsString(menuFood));
+                response.setCode("202");
+                response.setMessage("error");
+            }
+        } catch (Exception e) {
+            log.warn(e.toString());
+            response.setCode("500");
+        }
+        return response;
+    }
 }
