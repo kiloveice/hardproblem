@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TagService {
@@ -48,7 +49,13 @@ public class TagService {
         return foodTagMapper.insertSelective(foodTag);
     }
 
+//    涉及多表连接，废弃
+//    public ArrayList<Tag> getTagByFoodId(Integer foodId, boolean all) {
+//        return (ArrayList<Tag>) foodTagMapper.getTagByFoodId(foodId, all);
+//    }
+
     public ArrayList<Tag> getTagByFoodId(Integer foodId, boolean all) {
-        return (ArrayList<Tag>) foodTagMapper.getTagByFoodId(foodId, all);
+        List<Integer> tagIdList = foodTagMapper.getTagIdByFoodId(foodId, all);
+        return (ArrayList<Tag>) tagMapper.selectInTagIdList(tagIdList, all);
     }
 }

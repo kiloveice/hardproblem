@@ -25,4 +25,15 @@
             and food_id=#{foodId}
         limit 1
     </delete>
+
+    <select id="getFoodIdByMenuId" resultType="java.lang.Integer">
+        select menu_food.food_id
+        from menu_food
+        <where>
+            <if test="!all">
+                and menu_food.status=true
+            </if>
+            and menu_food.menu_id=#{menuId}
+        </where>
+    </select>
 </mapper>

@@ -12,4 +12,6 @@ public interface ExMenuFoodMapper extends MenuFoodMapper {
     List<Food> getFoodByMenuId(@Param("menuId") Integer menuId, boolean all);
 
     int deleteAFoodByMenuIdAndFoodId(MenuFood menuFood);
+
+    List<Integer> getFoodIdByMenuId(@Param("menuId") Integer menuId, boolean all);
 }

@@ -98,4 +98,16 @@
             and food_tag.food_id=#{foodId}
         </where>
     </select>
+
+    <select id="getTagIdByFoodId" resultType="java.lang.Integer">
+        select tag_id
+        from
+        food_tag
+        <where>
+            <if test="!all">
+                and food_tag.status=true
+            </if>
+            and food_id=#{foodId}
+        </where>
+    </select>
 </mapper>

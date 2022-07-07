@@ -14,4 +14,17 @@
             </if>
         </where>
     </select>
+    <select id="selectInFoodList" resultType="live.hardproblem.dao.entity.Food">
+        select *
+        from food
+        <where>
+            <if test="all">
+                and status = true
+            </if>
+            and id in
+            <foreach collection="foodIdList" item="foodId" open="(" close=")" separator=",">
+                #{foodId}
+            </foreach>
+        </where>
+    </select>
 </mapper>

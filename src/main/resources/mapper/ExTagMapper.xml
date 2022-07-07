@@ -10,4 +10,17 @@
             </if>
         </where>
     </select>
+    <select id="selectInTagIdList" resultType="live.hardproblem.dao.entity.Tag">
+        select *
+        from tag
+        <where>
+            <if test="all != true">
+                and status=true
+            </if>
+            and id in
+                <foreach collection="tagIdList" item="tagId" open="(" close=")" separator=",">
+                    #{tagId}
+                </foreach>
+        </where>
+    </select>
 </mapper>
