@@ -17,10 +17,17 @@
             <if test="all != true">
                 and status=true
             </if>
-            and id in
-                <foreach collection="tagIdList" item="tagId" open="(" close=")" separator=",">
-                    #{tagId}
-                </foreach>
+            <choose>
+                <when test="tagIdList != null and tagIdList.size() > 0">
+                    and id in
+                    <foreach collection="tagIdList" item="tagId" open="(" close=")" separator=",">
+                        #{tagId}
+                    </foreach>
+                </when>
+                <otherwise>
+                    and false
+                </otherwise>
+            </choose>
         </where>
     </select>
 </mapper>
