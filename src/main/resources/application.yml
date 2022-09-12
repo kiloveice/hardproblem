@@ -40,6 +40,6 @@ spring:
     prefix: classpath:/static/
     cache: false
   datasource:
-    url: jdbc:mysql://localhost:3306/what_to_eat?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    url: jdbc:mysql://localhost:3306/what_to_eat?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: "root"
     password: "123456"
