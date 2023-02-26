@@ -6,28 +6,18 @@ server:
     min-response-size: 2048
 
 
-mybatis:
+mybatis-plus:
   typeAliasesPackage: live.hardproblem.dao.entity
   mapperLocations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+shiro:
+  turns: 1024
 
 logging:
       level:
         root: info
-#  level:
-#    live:
-#      hardproblem:
-#        dao:
-#          debug
-
-#    org:
-#      springframework:
-#        web:
-#          servlet:
-#            mvc:
-#              method:
-#                annotation:
-#                  RequestMappingHandlerMapping:
-#                    trace
       file:
         name: ./log/log.txt
 
