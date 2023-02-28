@@ -26,7 +26,7 @@ public class MyRealm extends AuthorizingRealm {
         try {
             String username = ((UsernamePasswordToken) token).getUsername();
             Account account = accountService.getByUsername(username);
-            return new SimpleAuthenticationInfo(account.getUsername(), account.getPassword(), ByteSource.Util.bytes(account.getSalt()), account.getNickname());
+            return new SimpleAuthenticationInfo(account, account.getPassword(), ByteSource.Util.bytes(account.getSalt()), account.getNickname());
         } catch (Exception ignored) {
         }
         return null;
