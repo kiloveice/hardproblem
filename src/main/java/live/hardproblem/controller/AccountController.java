@@ -56,12 +56,15 @@ public class AccountController {
             UsernamePasswordToken token = new UsernamePasswordToken();
             token.setUsername(account.getUsername());
 //            token.setPassword(account.getPassword().toCharArray());
-            token.setPassword(accountService.hashPasswordByUsername(account.getUsername(), account.getPassword()).toCharArray());
+            Account accountDB = accountService.getByUsername(account.getUsername());
+            token.setPassword(accountService.hashPasswordBySalt(account.getPassword(), accountDB.getSalt()).toCharArray());
             Subject subject = SecurityUtils.getSubject();
             subject.login(token);
 
+            accountDB = accountService.getAccountSafeByAccount(accountDB);
             response.setCode("200");
             response.setMessage("login successfully!");
+            response.setData(accountDB);
             log.info(ip + " login Username: " + account.getUsername());
         } catch (AuthenticationException e) {
             log.info(ip + " Failed to login." + e.toString());
@@ -87,6 +90,32 @@ public class AccountController {
             log.warn(e.toString());
             response.setCode("500");
             response.setMessage("Failed logout");
+        }
+        return response;
+    }
+
+    @PostMapping("/check/username")
+    public HttpResponseEntity checkUsername(@RequestBody Account account) {
+        HttpResponseEntity response = new HttpResponseEntity();
+        try {
+            boolean flag = true;
+            if (account.getUsername() != null && account.getUsername().length() > 1) {
+                Account accountDB = accountService.getByUsername(account.getUsername());
+                flag = (accountDB == null);
+            } else {
+                flag = false;
+            }
+            if (flag) {
+                response.setCode("200");
+                response.setMessage("username is available!");
+            } else {
+                response.setCode("202");
+                response.setMessage("username is not available!");
+            }
+        } catch (Exception e) {
+            log.warn(e.toString());
+            response.setCode("500");
+            response.setMessage("error");
         }
         return response;
     }

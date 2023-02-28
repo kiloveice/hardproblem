@@ -39,7 +39,24 @@ public class AccountService {
         return new Sha256Hash(password, salt, turns).toBase64();
     }
 
+
+    protected boolean checkSignUp(Account account) {
+        if (account.getUsername().length() < 1 || account.getUsername().length() > 20) {
+            return false;
+        }
+        if (account.getNickname().length() < 1 || account.getNickname().length() > 20) {
+            return false;
+        }
+        if (account.getPassword().length() < 6 || account.getPassword().length() > 20) {
+            return false;
+        }
+        return true;
+    }
+
     public int insert(Account account) {
+        if (!checkSignUp(account)) {
+            return 0;
+        }
         account.setSalt(generateSalt());
         account.setPassword(shaHash(account.getPassword(), account.getSalt()));
         insert_fill(account);
@@ -53,5 +70,18 @@ public class AccountService {
     public String hashPasswordByUsername(String username, String password) {
         Account account = getByUsername(username);
         return shaHash(password, account.getSalt());
+    }
+
+    public String hashPasswordBySalt(String password, String salt) {
+        return shaHash(password, salt);
+    }
+
+    public Account getAccountSafeByAccount(Account account){
+        account.setId(null);
+        account.setPassword(null);
+        account.setSalt(null);
+        account.setCreateTime(null);
+        account.setUpdateTime(null);
+        return account;
     }
 }

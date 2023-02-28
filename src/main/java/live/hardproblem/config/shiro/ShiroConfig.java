@@ -43,7 +43,7 @@ public class ShiroConfig {
         factoryBean.setSecurityManager(manager);
 
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("/food/**", "authc");
+//        map.put("/food/**", "authc");
         map.put("/**", "anon");
         factoryBean.setFilterChainDefinitionMap(map);
 
