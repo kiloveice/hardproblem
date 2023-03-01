@@ -3,7 +3,12 @@
 <mapper namespace="live.hardproblem.dao.ExFoodMapper">
     <select id="selectAll" resultType="live.hardproblem.dao.entity.Food">
         select *
-        from food;
+        from food
+        <where>
+            <if test="!all">
+                and status = true
+            </if>
+        </where>
     </select>
     <select id="getAllId" resultType="java.lang.Integer">
         select id

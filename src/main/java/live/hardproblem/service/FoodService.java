@@ -41,8 +41,8 @@ public class FoodService {
         return foodMapper.updateByPrimaryKeySelective(food);
     }
 
-    public ArrayList<Food> selectAll(int page, int num) {
-        return (ArrayList<Food>) foodMapper.selectAll(page, num);
+    public ArrayList<Food> selectAll(int page, int num, boolean all) {
+        return (ArrayList<Food>) foodMapper.selectAll(page, num, all);
     }
 
     public Food getById(Integer id) {
