@@ -14,7 +14,7 @@
         select id
         from food
         <where>
-            <if test="all">
+            <if test="!all">
                 and status = true
             </if>
         </where>
@@ -23,7 +23,7 @@
         select *
         from food
         <where>
-            <if test="all">
+            <if test="!all">
                 and status = true
             </if>
             <choose>
