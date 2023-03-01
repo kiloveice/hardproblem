@@ -102,7 +102,7 @@ public class FoodController {
         try {
             int page = (int) request.getOrDefault("page", 1);
             int num = (int) request.getOrDefault("num", 10);
-            ArrayList<Food> foods = foodService.selectAll(page, num);
+            ArrayList<Food> foods = foodService.selectAll(page, num, false);
             httpResponseEntity.setCode("200");
             httpResponseEntity.setData(foods);
             httpResponseEntity.setMessage("OK!");

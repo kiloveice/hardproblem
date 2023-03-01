@@ -1,0 +1,1 @@
+INSERT INTO `account` VALUES (1, 'admin', 'nsy', 'sLjfjO6OKf4tz8NvkJu/QXc2DBODkusVlEL79EZ6j6k=', '0fb3d99ee2e3be52a1e203059c72bfc2', 2, 1, 0, '2023-03-01 11:16:57', '2023-03-01 11:21:36');

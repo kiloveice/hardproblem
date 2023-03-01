@@ -2,8 +2,6 @@ package live.hardproblem.dao;
 
 import live.hardproblem.dao.entity.MenuFood;
 
-import java.util.List;
-
 public interface MenuFoodMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,7 +14,4 @@ public interface MenuFoodMapper {
     int updateByPrimaryKeySelective(MenuFood record);
 
     int updateByPrimaryKey(MenuFood record);
-
-    List<Integer> selectFoodIdByMenuId(int id);
-
 }

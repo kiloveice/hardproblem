@@ -6,30 +6,20 @@ server:
     min-response-size: 2048
 
 
-mybatis:
+mybatis-plus:
   typeAliasesPackage: live.hardproblem.dao.entity
   mapperLocations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+shiro:
+  turns: 1024
 
 logging:
-      level:
-        root: info
-#  level:
-#    live:
-#      hardproblem:
-#        dao:
-#          debug
-
-#    org:
-#      springframework:
-#        web:
-#          servlet:
-#            mvc:
-#              method:
-#                annotation:
-#                  RequestMappingHandlerMapping:
-#                    trace
-      file:
-        name: ./log/log.txt
+  level:
+    root: info
+  file:
+    name: ./log/log.txt
 
 spring:
   profiles:
@@ -43,3 +33,7 @@ spring:
     url: jdbc:mysql://localhost:3306/what_to_eat?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: "root"
     password: "123456"
+  flyway:
+    enabled: true
+    clean-disabled: true
+    baseline-on-migrate: true

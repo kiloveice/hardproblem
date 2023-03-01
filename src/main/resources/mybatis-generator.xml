@@ -11,7 +11,7 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/what_to_eat"
+                        connectionURL="jdbc:mysql://localhost:3306/what_to_eat?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"
                         userId="root"
                         password="123456">
         </jdbcConnection>
@@ -47,6 +47,11 @@
         </table>
         <table tableName="menu_food"
                domainObjectName="MenuFood"
+               enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table tableName="account"
+               domainObjectName="Account"
                enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" selectByExampleQueryId="false">
         </table>

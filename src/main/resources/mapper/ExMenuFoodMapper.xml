@@ -36,4 +36,11 @@
             and menu_food.menu_id=#{menuId}
         </where>
     </select>
+
+    <select id="deleteFoodByFoodId" resultType="java.lang.Integer">
+        delete from menu_food
+        <where>
+            food_id=#{foodId}
+        </where>
+    </select>
 </mapper>
