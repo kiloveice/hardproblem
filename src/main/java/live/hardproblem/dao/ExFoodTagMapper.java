@@ -17,7 +17,9 @@ public interface ExFoodTagMapper extends FoodTagMapper {
                                                        @Param("tagIdList") List<Integer> tagIdList,
                                                        @Param("all") boolean all);
 
-    List<Tag> getTagByFoodId(@Param("foodId") Integer foodId,@Param("all") boolean all);
+    List<Tag> getTagByFoodId(@Param("foodId") Integer foodId, @Param("all") boolean all);
 
-    List<Integer> getTagIdByFoodId(@Param("foodId") Integer foodId,@Param("all") boolean all);
+    List<Integer> getTagIdByFoodId(@Param("foodId") Integer foodId, @Param("all") boolean all);
+
+    Integer removeByFoodId(@Param("foodId") Integer foodId);
 }

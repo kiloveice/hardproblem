@@ -1,6 +1,8 @@
 package live.hardproblem.service;
 
 import live.hardproblem.dao.ExFoodMapper;
+import live.hardproblem.dao.ExFoodTagMapper;
+import live.hardproblem.dao.ExMenuFoodMapper;
 import live.hardproblem.dao.FoodMapper;
 import live.hardproblem.dao.entity.Food;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,10 @@ import java.util.Date;
 public class FoodService {
     @Autowired
     ExFoodMapper foodMapper;
+    @Autowired
+    ExFoodTagMapper foodTagMapper;
+    @Autowired
+    ExMenuFoodMapper menuFoodMapper;
 
     protected void insert_fill(Food food) {
         food.setId(null);
@@ -41,5 +47,15 @@ public class FoodService {
 
     public Food getById(Integer id) {
         return foodMapper.selectByPrimaryKey(id);
+    }
+
+    public boolean removeById(Food food) {
+        Integer n = foodMapper.removeById(food.getId());
+//        if (n == null || n <= 0) {
+//            return false;
+//        }
+        foodTagMapper.removeByFoodId(food.getId());
+        menuFoodMapper.deleteFoodByFoodId(food.getId());
+        return true;
     }
 }

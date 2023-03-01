@@ -9,4 +9,11 @@ public class HttpResponseMessage {
 
     public static String errorCode = "500";
     public static String errorMessage = "Error";
+
+    public static String unauthenticatedCode = "301";
+    public static String unauthenticatedMessage = "请先登录";
+
+    public static String unauthorizedCode = "302";
+    public static String unauthorizedMessage = "权限不足";
+
 }

@@ -34,4 +34,11 @@
             </choose>
         </where>
     </select>
+    <select id="removeById" resultType="java.lang.Integer">
+        update food
+        set status=false
+        <where>
+            id=#{id}
+        </where>
+    </select>
 </mapper>

@@ -1,5 +1,7 @@
 package live.hardproblem.config.shiro;
 
+import live.hardproblem.config.shiro.filter.JSONFormAuthenticationFilter;
+import live.hardproblem.config.shiro.filter.JSONFormRolesAuthorizationFilter;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -42,8 +44,14 @@ public class ShiroConfig {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         factoryBean.setSecurityManager(manager);
 
+        LinkedHashMap<String, Filter> filterMap = new LinkedHashMap<>();
+        filterMap.put("authc", new JSONFormAuthenticationFilter());
+        filterMap.put("roles", new JSONFormRolesAuthorizationFilter());
+        factoryBean.setFilters(filterMap);
+
         Map<String, String> map = new LinkedHashMap<>();
 //        map.put("/food/**", "authc");
+        map.put("/admin/**", "roles[admin]");
         map.put("/**", "anon");
         factoryBean.setFilterChainDefinitionMap(map);
 

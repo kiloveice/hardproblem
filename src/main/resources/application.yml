@@ -16,10 +16,10 @@ shiro:
   turns: 1024
 
 logging:
-      level:
-        root: info
-      file:
-        name: ./log/log.txt
+  level:
+    root: info
+  file:
+    name: ./log/log.txt
 
 spring:
   profiles:

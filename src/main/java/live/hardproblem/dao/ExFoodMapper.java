@@ -13,4 +13,6 @@ public interface ExFoodMapper extends FoodMapper {
 
     List<Food> selectInFoodList(@Param("foodIdList") List<Integer> foodIdList,
                                 @Param("all") boolean all);
+
+    Integer removeById(@Param("id") int id);
 }

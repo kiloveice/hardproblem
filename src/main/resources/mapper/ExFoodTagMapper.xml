@@ -110,4 +110,12 @@
             and food_id=#{foodId}
         </where>
     </select>
+
+    <select id="removeByFoodId" resultType="java.lang.Integer">
+        update food_tag
+        set status=false
+        <where>
+            food_id=#{foodId}
+        </where>
+    </select>
 </mapper>
