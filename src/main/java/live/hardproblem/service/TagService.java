@@ -6,6 +6,8 @@ import live.hardproblem.dao.entity.Food;
 import live.hardproblem.dao.entity.FoodTag;
 import live.hardproblem.dao.entity.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,15 +31,18 @@ public class TagService {
         tag.setUpdatedAt(null);
     }
 
+    @Cacheable(cacheNames = "tag_all")
     public ArrayList<Tag> getAll(boolean all) {
         return (ArrayList<Tag>) tagMapper.getAll(all);
     }
 
+    @CacheEvict(cacheNames = "tag_all", allEntries = true)
     public int insert(Tag tag) {
         insert_fill(tag);
         return tagMapper.insertSelective(tag);
     }
 
+    @CacheEvict(cacheNames = {"tag_all", "food_tag"}, allEntries = true)
     public int addFoodTag(Integer foodId, Integer tagId) {
         FoodTag foodTag = new FoodTag();
         foodTag.setFoodId(foodId);
@@ -54,6 +59,7 @@ public class TagService {
 //        return (ArrayList<Tag>) foodTagMapper.getTagByFoodId(foodId, all);
 //    }
 
+    @Cacheable(cacheNames = "food_tag")
     public ArrayList<Tag> getTagByFoodId(Integer foodId, boolean all) {
         List<Integer> tagIdList = foodTagMapper.getTagIdByFoodId(foodId, all);
         return (ArrayList<Tag>) tagMapper.selectInTagIdList(tagIdList, all);
