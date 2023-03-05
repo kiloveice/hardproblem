@@ -8,6 +8,7 @@ import live.hardproblem.dao.entity.MenuFood;
 import live.hardproblem.dao.entity.Tag;
 import live.hardproblem.service.MenuService;
 import live.hardproblem.util.IpUtil;
+import live.hardproblem.util.entityCheck.MenuCheck;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,10 @@ public class MenuController {
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try {
             String ip = IpUtil.getIpAddr(request);
-            int flag = menuService.insert(menu);
+            int flag = 0;
+            if (MenuCheck.insertCheck(menu)) {
+                flag = menuService.insert(menu);
+            }
             if (flag > 0) {
                 log.warn(ip + " insert menu " + mapper.writeValueAsString(menu));
                 httpResponseEntity.setCode("200");
@@ -63,7 +67,10 @@ public class MenuController {
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try {
             String ip = IpUtil.getIpAddr(request);
-            int flag = menuService.update(menu);
+            int flag = 0;
+            if (MenuCheck.updateCheck(menu)) {
+                flag = menuService.update(menu);
+            }
             if (flag > 0) {
                 log.warn(ip + " update menu " + mapper.writeValueAsString(menu));
                 httpResponseEntity.setCode("200");

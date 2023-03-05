@@ -5,6 +5,7 @@ import live.hardproblem.beans.HttpResponseEntity;
 import live.hardproblem.dao.entity.Tag;
 import live.hardproblem.service.TagService;
 import live.hardproblem.util.IpUtil;
+import live.hardproblem.util.entityCheck.TagCheck;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,10 @@ public class TagController {
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try {
             String ip = IpUtil.getIpAddr(request);
-            int flag = tagService.insert(tag);
+            int flag = 0;
+            if (TagCheck.insertCheck(tag)) {
+                flag = tagService.insert(tag);
+            }
             if (flag > 0) {
                 log.warn(ip + " insert tag " + mapper.writeValueAsString(tag));
                 httpResponseEntity.setCode("200");

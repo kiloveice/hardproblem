@@ -48,8 +48,8 @@ public class FoodService {
     }
 
     @Cacheable(cacheNames = "food_all")
-    public ArrayList<Food> selectAll(int page, int num, boolean all) {
-        return (ArrayList<Food>) foodMapper.selectAll(page, num, all);
+    public ArrayList<Food> selectAll(int start, int end, boolean all) {
+        return (ArrayList<Food>) foodMapper.selectAll(start, end, all);
     }
 
     @Cacheable(cacheNames = "food_id")
