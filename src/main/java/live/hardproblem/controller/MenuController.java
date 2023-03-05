@@ -33,9 +33,9 @@ public class MenuController {
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try {
             int page = (int) request.getOrDefault("page", 1);
-            int num = (int) request.getOrDefault("num", 10);
-            if (num > 30) {
-                num = 30;
+            int num = (int) request.getOrDefault("num", 30);
+            if (num > 100) {
+                num = 100;
             }
             ArrayList<Menu> menus = menuService.getAllPage(page, num, false);
             httpResponseEntity.setCode("200");
@@ -127,8 +127,8 @@ public class MenuController {
         try {
             int page = (int) request.getOrDefault("page", 1);
             int num = (int) request.getOrDefault("num", 30);
-            if (num > 50) {
-                num = 50;
+            if (num > 100) {
+                num = 100;
             }
             Integer menuId = (Integer) request.getOrDefault("menuId", 0);
             ArrayList<Food> foods = menuService.getFoodByMenuIdPage(menuId, page, num, false);

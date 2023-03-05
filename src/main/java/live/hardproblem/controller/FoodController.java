@@ -107,9 +107,9 @@ public class FoodController {
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try {
             int page = (int) request.getOrDefault("page", 1);
-            int num = (int) request.getOrDefault("num", 10);
-            if (num > 30) {
-                num = 30;
+            int num = (int) request.getOrDefault("num", 30);
+            if (num > 100) {
+                num = 100;
             }
             ArrayList<Food> foods = foodService.selectAll((page - 1) * num, page * num, false);
             httpResponseEntity.setCode("200");
