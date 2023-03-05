@@ -2,11 +2,11 @@ package live.hardproblem.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import live.hardproblem.dao.entity.Food;
-import live.hardproblem.dao.entity.Tag;
 import live.hardproblem.service.FoodService;
 import live.hardproblem.service.ProblemService;
 import live.hardproblem.service.TagService;
 import live.hardproblem.util.IpUtil;
+import live.hardproblem.util.entityCheck.FoodCheck;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,10 @@ public class FoodController {
         HttpResponseEntity response = new HttpResponseEntity();
         try {
             String ip = IpUtil.getIpAddr(request);
-            int flag = foodService.insert(food);
+            int flag = 0;
+            if (FoodCheck.insertCheck(food)) {
+                flag = foodService.insert(food);
+            }
             if (flag != 0) {
                 response.setCode("200");
                 response.setMessage("Insert food successfully! " + flag);
@@ -56,7 +59,10 @@ public class FoodController {
         HttpResponseEntity response = new HttpResponseEntity();
         try {
             String ip = IpUtil.getIpAddr(request);
-            int flag = foodService.update(food);
+            int flag = 0;
+            if (FoodCheck.updateCheck(food)) {
+                flag = foodService.update(food);
+            }
             if (flag != 0) {
                 response.setCode("200");
                 response.setMessage("Update food successfully! " + flag);
@@ -97,12 +103,15 @@ public class FoodController {
     }
 
     @PostMapping("/food/get")
-    public HttpResponseEntity get_all(@RequestBody Map<Object, Object> request) {
+    public HttpResponseEntity getAll(@RequestBody Map<Object, Object> request) {
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try {
             int page = (int) request.getOrDefault("page", 1);
             int num = (int) request.getOrDefault("num", 10);
-            ArrayList<Food> foods = foodService.selectAll(page, num, false);
+            if (num > 30) {
+                num = 30;
+            }
+            ArrayList<Food> foods = foodService.selectAll((page - 1) * num, page * num, false);
             httpResponseEntity.setCode("200");
             httpResponseEntity.setData(foods);
             httpResponseEntity.setMessage("OK!");

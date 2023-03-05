@@ -1,5 +1,6 @@
 package live.hardproblem.service;
 
+import com.github.pagehelper.PageHelper;
 import live.hardproblem.dao.ExFoodMapper;
 import live.hardproblem.dao.ExMenuFoodMapper;
 import live.hardproblem.dao.ExMenuMapper;
@@ -8,6 +9,8 @@ import live.hardproblem.dao.entity.Menu;
 import live.hardproblem.dao.entity.MenuFood;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,20 +36,30 @@ public class MenuService {
         menu.setUpdatedAt(null);
     }
 
+    @Cacheable(cacheNames = "menu_all")
     public ArrayList<Menu> getAll(boolean all) {
         return (ArrayList<Menu>) menuMapper.getAll(all);
     }
 
+    @Cacheable(cacheNames = "menu_all")
+    public ArrayList<Menu> getAllPage(int page, int num, boolean all) {
+        PageHelper.startPage(page, num);
+        return (ArrayList<Menu>) menuMapper.getAll(all);
+    }
+
+    @CacheEvict(cacheNames = "menu_all", allEntries = true)
     public int insert(Menu menu) {
         insert_fill(menu);
         return menuMapper.insertSelective(menu);
     }
 
+    @CacheEvict(cacheNames = {"menu_all", "menu_id"}, allEntries = true)
     public int update(Menu menu) {
         update_fill(menu);
         return menuMapper.updateByPrimaryKeySelective(menu);
     }
 
+    @CacheEvict(cacheNames = "menu_food_all", allEntries = true)
     public int addMenuFood(MenuFood menuFood) {
         menuFood.setId(null);
         menuFood.setStatus(null);
@@ -60,15 +73,25 @@ public class MenuService {
 //        return (ArrayList<Food>) menuFoodMapper.getFoodByMenuId(menuId, all);
 //    }
 
+    @Cacheable(cacheNames = "menu_food_all")
     public ArrayList<Food> getFoodByMenuId(Integer menuId, boolean all) {
         List<Integer> foodIdList = menuFoodMapper.getFoodIdByMenuId(menuId, all);
         return (ArrayList<Food>) foodMapper.selectInFoodList(foodIdList, all);
     }
 
+    @Cacheable(cacheNames = "menu_food_all")
+    public ArrayList<Food> getFoodByMenuIdPage(Integer menuId, int page, int num, boolean all) {
+        PageHelper.startPage(page, num);
+        List<Integer> foodIdList = menuFoodMapper.getFoodIdByMenuId(menuId, all);
+        return (ArrayList<Food>) foodMapper.selectInFoodList(foodIdList, all);
+    }
+
+    @Cacheable(cacheNames = "menu_id")
     public Menu getByMenuId(Integer menuId) {
         return menuMapper.selectByPrimaryKey(menuId);
     }
 
+    @CacheEvict(cacheNames = "menu_food_all", allEntries = true)
     public int deleteFood(MenuFood menuFood) {
         return menuFoodMapper.deleteAFoodByMenuIdAndFoodId(menuFood);
     }
