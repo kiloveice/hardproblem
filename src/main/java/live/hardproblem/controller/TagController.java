@@ -25,7 +25,7 @@ public class TagController {
     @Autowired
     ObjectMapper mapper;
 
-    @GetMapping("/")
+    @PostMapping("/")
     public HttpResponseEntity getAll(@RequestBody Map<Object, Object> request) {
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try {
