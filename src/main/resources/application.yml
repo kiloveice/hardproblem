@@ -21,6 +21,11 @@ logging:
   file:
     name: ./log/log.txt
 
+pagehelper:
+  propertyName: propertyValue
+  reasonable: false
+  defaultCount: true
+
 spring:
   profiles:
     active: dev

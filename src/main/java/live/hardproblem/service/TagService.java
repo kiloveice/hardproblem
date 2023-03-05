@@ -1,5 +1,6 @@
 package live.hardproblem.service;
 
+import com.github.pagehelper.PageHelper;
 import live.hardproblem.dao.ExFoodTagMapper;
 import live.hardproblem.dao.ExTagMapper;
 import live.hardproblem.dao.entity.Food;
@@ -33,6 +34,12 @@ public class TagService {
 
     @Cacheable(cacheNames = "tag_all")
     public ArrayList<Tag> getAll(boolean all) {
+        return (ArrayList<Tag>) tagMapper.getAll(all);
+    }
+
+    @Cacheable(cacheNames = "tag_all")
+    public ArrayList<Tag> getAllPage(int page, int num, boolean all) {
+        PageHelper.startPage(page, num);
         return (ArrayList<Tag>) tagMapper.getAll(all);
     }
 

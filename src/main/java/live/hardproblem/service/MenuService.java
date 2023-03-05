@@ -1,5 +1,6 @@
 package live.hardproblem.service;
 
+import com.github.pagehelper.PageHelper;
 import live.hardproblem.dao.ExFoodMapper;
 import live.hardproblem.dao.ExMenuFoodMapper;
 import live.hardproblem.dao.ExMenuMapper;
@@ -40,6 +41,12 @@ public class MenuService {
         return (ArrayList<Menu>) menuMapper.getAll(all);
     }
 
+    @Cacheable(cacheNames = "menu_all")
+    public ArrayList<Menu> getAllPage(int page, int num, boolean all) {
+        PageHelper.startPage(page, num);
+        return (ArrayList<Menu>) menuMapper.getAll(all);
+    }
+
     @CacheEvict(cacheNames = "menu_all", allEntries = true)
     public int insert(Menu menu) {
         insert_fill(menu);
@@ -68,6 +75,13 @@ public class MenuService {
 
     @Cacheable(cacheNames = "menu_food_all")
     public ArrayList<Food> getFoodByMenuId(Integer menuId, boolean all) {
+        List<Integer> foodIdList = menuFoodMapper.getFoodIdByMenuId(menuId, all);
+        return (ArrayList<Food>) foodMapper.selectInFoodList(foodIdList, all);
+    }
+
+    @Cacheable(cacheNames = "menu_food_all")
+    public ArrayList<Food> getFoodByMenuIdPage(Integer menuId, int page, int num, boolean all) {
+        PageHelper.startPage(page, num);
         List<Integer> foodIdList = menuFoodMapper.getFoodIdByMenuId(menuId, all);
         return (ArrayList<Food>) foodMapper.selectInFoodList(foodIdList, all);
     }
