@@ -5,6 +5,7 @@ import live.hardproblem.dao.entity.Food;
 import live.hardproblem.service.FoodService;
 import live.hardproblem.service.ProblemService;
 import live.hardproblem.service.TagService;
+import live.hardproblem.util.HttpResponseMessage;
 import live.hardproblem.util.IpUtil;
 import live.hardproblem.util.entityCheck.FoodCheck;
 import lombok.extern.java.Log;
@@ -196,6 +197,22 @@ public class FoodController {
         } catch (Exception e) {
             log.warning(e.toString());
             response.setCode("500");
+        }
+        return response;
+    }
+
+    @GetMapping("/food/getCount")
+    public HttpResponseEntity getCount() {
+        HttpResponseEntity response = new HttpResponseEntity();
+        try {
+            int count = foodService.getFoodCount(false);
+            response.setCode(HttpResponseMessage.goodCode);
+            response.setMessage(HttpResponseMessage.goodMessage);
+            response.setData(count);
+        } catch (Exception e) {
+            log.warning(e.toString());
+            response.setCode(HttpResponseMessage.errorCode);
+            response.setMessage(HttpResponseMessage.errorMessage);
         }
         return response;
     }

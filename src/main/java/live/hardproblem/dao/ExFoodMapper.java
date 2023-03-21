@@ -15,4 +15,6 @@ public interface ExFoodMapper extends FoodMapper {
                                 @Param("all") boolean all);
 
     Integer removeById(@Param("id") int id);
+
+    Integer getCount(@Param("all") boolean all);
 }

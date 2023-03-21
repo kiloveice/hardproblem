@@ -67,4 +67,8 @@ public class FoodService {
         menuFoodMapper.deleteFoodByFoodId(food.getId());
         return true;
     }
+
+    public int getFoodCount(boolean all) {
+        return foodMapper.getCount(all);
+    }
 }

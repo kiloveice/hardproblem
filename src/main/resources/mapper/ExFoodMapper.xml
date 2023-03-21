@@ -47,4 +47,13 @@
             id=#{id}
         </where>
     </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*)
+        from food
+        <where>
+            <if test="!all">
+                and status=true
+            </if>
+        </where>
+    </select>
 </mapper>
