@@ -95,4 +95,12 @@ public class MenuService {
     public int deleteFood(MenuFood menuFood) {
         return menuFoodMapper.deleteAFoodByMenuIdAndFoodId(menuFood);
     }
+
+    public int getMenuCount(boolean all) {
+        return menuMapper.getMenuCount(all);
+    }
+
+    public int getMenuFoodCount(int menuId, boolean all) {
+        return menuFoodMapper.getMenuFoodCount(menuId, all);
+    }
 }

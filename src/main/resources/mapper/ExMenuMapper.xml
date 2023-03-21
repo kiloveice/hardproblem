@@ -10,4 +10,13 @@
             </if>
         </where>
     </select>
+    <select id="getMenuCount" resultType="java.lang.Integer">
+        select count(*)
+        from menu
+        <where>
+            <if test="!all">
+                and status=true
+            </if>
+        </where>
+    </select>
 </mapper>

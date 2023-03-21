@@ -4,7 +4,7 @@
     <select id="selectFoodIdByMenuId" resultType="java.lang.Integer">
         select food_id
         from menu_food
-        where menu_id=#{id}
+        where menu_id = #{id}
     </select>
     <select id="getFoodByMenuId" resultType="live.hardproblem.dao.entity.Food">
         select *
@@ -19,11 +19,10 @@
         </where>
     </select>
     <delete id="deleteAFoodByMenuIdAndFoodId" parameterType="live.hardproblem.dao.entity.MenuFood">
-        delete from menu_food
-        where
-            menu_id=#{menuId}
-            and food_id=#{foodId}
-        limit 1
+        delete
+        from menu_food
+        where menu_id = #{menuId}
+          and food_id = #{foodId} limit 1
     </delete>
 
     <select id="getFoodIdByMenuId" resultType="java.lang.Integer">
@@ -41,6 +40,17 @@
         delete from menu_food
         <where>
             food_id=#{foodId}
+        </where>
+    </select>
+
+    <select id="getMenuFoodCount" resultType="java.lang.Integer">
+        select count(*)
+        from menu_food
+        <where>
+            <if test="!all">
+                and status=true
+            </if>
+            and menu_id=#{menuId}
         </where>
     </select>
 </mapper>
