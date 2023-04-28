@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class FoodService {
@@ -70,5 +71,10 @@ public class FoodService {
 
     public int getFoodCount(boolean all) {
         return foodMapper.getCount(all);
+    }
+
+    public ArrayList<Food> getFoodBySearchPrefix(String prefix, boolean all) {
+        List<Food> foods = foodMapper.selectFoodByPrefix(prefix, all);
+        return (ArrayList<Food>) foods;
     }
 }

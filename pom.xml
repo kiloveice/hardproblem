@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>live</groupId>
 	<artifactId>hardproblem</artifactId>
-	<version>2.4.2-SNAPSHOT</version>
+	<version>2.4.3-SNAPSHOT</version>
 	<name>hardproblem</name>
 	<description>What to eat?2</description>
 	<properties>

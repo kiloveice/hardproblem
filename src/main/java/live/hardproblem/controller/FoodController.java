@@ -216,4 +216,21 @@ public class FoodController {
         }
         return response;
     }
+
+    @PostMapping("/food/search")
+    public HttpResponseEntity searchFood(@RequestBody Map<Object, Object> req) {
+        HttpResponseEntity response = new HttpResponseEntity();
+        try {
+            String prefix = (String) req.get("prefix");
+            ArrayList<Food> foods = foodService.getFoodBySearchPrefix(prefix, false);
+            response.setData(foods);
+            response.setCode(HttpResponseMessage.goodCode);
+            response.setMessage(HttpResponseMessage.goodMessage);
+        } catch (Exception e) {
+            log.warning(e.toString());
+            response.setCode(HttpResponseMessage.errorCode);
+            response.setMessage(HttpResponseMessage.errorMessage);
+        }
+        return response;
+    }
 }

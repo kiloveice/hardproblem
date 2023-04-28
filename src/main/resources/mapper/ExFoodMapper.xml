@@ -56,4 +56,14 @@
             </if>
         </where>
     </select>
+    <select id="selectFoodByPrefix" resultType="live.hardproblem.dao.entity.Food">
+        select *
+        from food
+        <where>
+            <if test="!all">
+                and status=true
+            </if>
+            and name like concat(#{prefix},'%')
+        </where>
+    </select>
 </mapper>
